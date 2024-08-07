@@ -26,8 +26,8 @@ const IR_Protocol_t IRProt_Xpand = {
 const IR_Protocol_t IRProt_3DVision = {
 	.sizes   = { 3,3, 1,3 },
 	.indices = { 0,3, 6,7 },
-	.timings = { 23,46,31,  23,78,40, 
-	             43,        23,21,24 }
+	.timings = { 23,46,31,  23,21,23,
+	             43,        23,78,40 }
 };
 const IR_Protocol_t IRProt_Sharp = {
 	.sizes   = { 15,0, 15,0 },
@@ -46,6 +46,12 @@ const IR_Protocol_t IRProt_Panasonic = {
 	.indices = { 0,7, 14,21 },
 	.timings = { 20,20,20,100,20,20,20,  20,60,20,20,20,60,20,
 	             20,60,20, 60,20,20,20,  20,20,20,60,20,60,20 }
+};
+const IR_Protocol_t IRProt_ELSA = {
+	.sizes   = { 11,0, 11,0 },
+	.indices = { 0,0, 11,0 },
+	.timings = { 11,16,15,16,15,16,15,16,15,47,15,
+	             11,16,15,16,15,47,15,16,15,16,15 }
 };
 
 #endif /* _IRPROTOCOLS_H_ */
