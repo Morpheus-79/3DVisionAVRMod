@@ -23,6 +23,14 @@ static uint8_t curToken;
 
 static void SendToken(uint8_t token);
 
+uint16_t FRAME_DURATION;
+uint16_t FRAME_PAN;
+
+unsigned long lastSendTokenTime = 0;
+#define NUM_MEASUREMENTS 5
+unsigned long periods[NUM_MEASUREMENTS];
+int periodIndex = 0;
+
 void IR_Init(void)
 {
 	/* GPIO */
@@ -38,6 +46,50 @@ void IR_Init(void)
 	TIFR1 = 0xFF; // Clear pending interrupt flags if any
 
 	IR_SetSyncMode(SYNCMODE_COMBINED);
+}
+
+void detectRefreshRate(void)
+{
+	if (lastSendTokenTime == 0) {
+		lastSendTokenTime = millis();
+		return;
+	}
+
+	uint32_t currentSendTokenTime = millis();
+	uint32_t period = currentSendTokenTime - lastSendTokenTime;
+	lastSendTokenTime = currentSendTokenTime;
+
+	periods[periodIndex] = period;
+	periodIndex = (periodIndex + 1) % NUM_MEASUREMENTS;
+
+	//Continue after enough measurements
+	if (periodIndex != 0) return;
+
+	// Calculate average value
+	unsigned long totalPeriod = 0;
+	for (int i = 0; i < NUM_MEASUREMENTS; i++) {
+		totalPeriod += periods[i];
+	}
+	unsigned long avgPeriod = totalPeriod / NUM_MEASUREMENTS;
+
+	// Calculate refresh rate
+	uint32_t refreshRate = 1000 / avgPeriod;
+
+	// Set FRAME_DURATION and FRAME_PAN according to refresh rate
+	if (refreshRate >= 80 && refreshRate <= 90) {
+		FRAME_DURATION = FRAME_DURATION_85HZ;
+		FRAME_PAN = FRAME_PAN_85HZ;
+		} else if (refreshRate >= 95 && refreshRate <= 111) {
+		FRAME_DURATION = FRAME_DURATION_100HZ;
+		FRAME_PAN = FRAME_PAN_100HZ;
+		} else if (refreshRate >= 115 && refreshRate <= 130) {
+		FRAME_DURATION = FRAME_DURATION_120HZ;
+		FRAME_PAN = FRAME_PAN_120HZ;
+		} else {
+		// Default values for non recognized refresh rates
+		FRAME_DURATION = FRAME_DURATION_100HZ;
+		FRAME_PAN = FRAME_PAN_100HZ;
+	}
 }
 
 void IR_Update(uint32_t curTime)
@@ -109,6 +161,7 @@ void IR_StartFrame(void)
 	lastFrame = millis();
 	synced = false;
 	SendToken(curEye * 2);
+	detectRefreshRate(); // Call refresh rate detection
 }
 //void IR_EndFrame(void) {}
 
