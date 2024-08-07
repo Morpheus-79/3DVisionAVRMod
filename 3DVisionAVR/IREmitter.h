@@ -2,10 +2,23 @@
 #ifndef _IREMITTER_H_
 #define _IREMITTER_H_
 
-// Frame exposure duration in half-microseconds (@16MHz)
-#define FRAME_DURATION  (2*4000)
+// Duration between close to open eye frames - in half-microseconds (@16MHz)
+#define FRAME_DURATION_85HZ  (2*400)
+#define FRAME_PAN_85HZ       (2*10500)
+
+#define FRAME_DURATION_100HZ  (2*400)
+#define FRAME_PAN_100HZ       (2*9100)
+
+#define FRAME_DURATION_120HZ  (2*400)
+#define FRAME_PAN_120HZ       (2*7500)
+
+// Default values
+extern uint16_t FRAME_DURATION;
+extern uint16_t FRAME_PAN;
+
+//#define FRAME_DURATION  (2*400)
 // Time between sync trigger and start of IR token (same units)
-#define FRAME_PAN       (10)
+//#define FRAME_PAN       (2*9100) // 2*3000 for 120Hz display (use 2*3400 for 100Hz)
 
 // INT1, pin 2 on "Arduino Pro Micro"
 #define SYNCIN          1
