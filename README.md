@@ -21,7 +21,7 @@ Todo list (maybe... one day):
 * add possibility to switch between protocols on the fly via an additional tactile button
 * add RGB LEDs to give a visual cue for what protocol and/or what mode is in use
 
-Please refer to the [original repository](https://github.com/lukis101/3DVisionAVR) for further information about different settings. I also recommend reading the [README by 'b3nn'](https://github.com/b3nn/3DVisionAVR-Hardware/blob/main/README-FLASH-FIRMWARE.md) about flashing the firmware onto the Arduino Pro Micro. If you get a build error like:
+Please refer to the [original repository](https://github.com/lukis101/3DVisionAVR) for further information about different settings. I also recommend reading the [README by 'b3nn'](https://github.com/b3nn/3DVisionAVR-Hardware/blob/main/README-FLASH-FIRMWARE.md) about flashing the firmware onto the Arduino Micro Pro. If you get a build error like:
 > Error can't create obj/Emitter.o: No such file or directory
 
 ... please try to create a sub directory called ***obj*** inside the ***3DVisionAVR*** directory and run the build solution again.
