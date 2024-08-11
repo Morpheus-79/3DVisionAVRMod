@@ -1,7 +1,7 @@
 # 3DVisionAVRMod
 Partial NVIDIA 3D Vision Emitter emulation using AVR microcontrollers  
 
-This is a fork of [3DVisionAVR](https://github.com/lukis101/3DVisionAVR) by 'lukis101'. The original project uses an Arduino Micro Pro for emulating NVIDIAs 3D Vision Emitter with a couple of additional features NVIDIAs hardware doesn't have (like support for lots of different IR 3D glasses and driving all supported glasses via VESA 3-pin header sync signal).
+This is a fork of [3DVisionAVR](https://github.com/lukis101/3DVisionAVR) by 'lukis101' (Dj Lukis.LT). The original project uses an Arduino Micro Pro for emulating NVIDIAs 3D Vision Emitter with a couple of additional features NVIDIAs hardware doesn't have (like support for lots of different IR 3D glasses and driving all supported glasses via VESA 3-pin header sync signal).
 
 This modified code enhances the 3D-Vision IR protocol settings inside the *IRProtocols.h* with some more optimal values and includes the protocol for the ancient ELSA Revelator 3D glasses. I've also implemented a (very crude and amateurish) refresh rate detection. It measures the time between the sent out tokens multiple times and then uses an average of all measurements to calculate the refresh rate.
 
